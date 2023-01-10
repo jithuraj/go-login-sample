@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/goccy/go-json"
 )
 
 func Api() {
@@ -48,7 +49,12 @@ func listUsers(c *gin.Context) {
 	users := database.GetAllUsers(db)
 
 	fmt.Println(users)
-	// fmt.Println(res)
-	// c.JSON(http.StatusOK, res)
+	res, err := json.Marshal(users)
+	if err != nil {
+		panic(err.Error())
+	}
+	res2 := string(res)
+	fmt.Println(res2)
+	c.String(http.StatusOK, res2)
 
 }
