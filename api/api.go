@@ -53,8 +53,8 @@ func listUsers(c *gin.Context) {
 	if err != nil {
 		panic(err.Error())
 	}
-	res2 := string(res)
-	fmt.Println(res2)
-	c.String(http.StatusOK, res2)
+	// res2 :=
+	// fmt.Println(res2)
+	c.String(http.StatusOK, string(res))
 
 }
