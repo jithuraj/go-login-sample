@@ -6,9 +6,9 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-type user struct {
-	username string
-	password string
+type User struct {
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 func OpenDB() *sql.DB {
@@ -31,8 +31,8 @@ func Insert(db *sql.DB, username string, password string) {
 	db.Exec("INSERT INTO users (username,password) values (?,?);", username, password)
 }
 
-func GetAllUsers(db *sql.DB) []user {
-	users := []user{}
+func GetAllUsers(db *sql.DB) []User {
+	users := []User{}
 	rows, err := db.Query("SELECT * FROM users;")
 	if err != nil {
 		panic(err.Error())
@@ -44,7 +44,7 @@ func GetAllUsers(db *sql.DB) []user {
 		if err != nil {
 			panic(err.Error())
 		}
-		users = append(users, user{username: username, password: password})
+		users = append(users, User{Username: username, Password: password})
 	}
 	return users
 }
