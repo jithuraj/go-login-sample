@@ -37,15 +37,18 @@ func signup(c *gin.Context) {
 	database.Insert(db, username, password)
 }
 
+type user struct {
+	username string
+	password string
+}
+
 func listUsers(c *gin.Context) {
 	db := database.OpenDB()
 	defer database.CloseDB(db)
 	users := database.GetAllUsers(db)
 
 	fmt.Println(users)
-
-	c.JSON(http.StatusOK, gin.H{
-		"username": users[0],
-	})
+	// fmt.Println(res)
+	// c.JSON(http.StatusOK, res)
 
 }
