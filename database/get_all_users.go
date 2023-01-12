@@ -11,6 +11,7 @@ func GetAllUsers(db *sql.DB) string {
 	if err != nil {
 		panic(err.Error())
 	}
+	defer rows.Close()
 	for rows.Next() {
 		var username string
 		var password string
