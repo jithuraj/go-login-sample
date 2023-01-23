@@ -15,9 +15,9 @@ func login(c *gin.Context) {
 	defer database.CloseDB(db)
 	isMatch := database.GetUserDetails(db, username, password)
 	if isMatch {
-		c.JSON(http.StatusOK, gin.H{"status": "user found"})
+		c.JSON(http.StatusOK, gin.H{"status": "true", "message": "logged in"})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"status": "user not found"})
+		c.JSON(http.StatusOK, gin.H{"status": "false", "message": "incorrect username or password"})
 	}
 
 }
