@@ -5,6 +5,9 @@ import (
 )
 
 func GetUserDetails(db *sql.DB, username string, password string) bool {
+	if username == "" || password == "" {
+		return false
+	}
 	rows, err := db.Query("SELECT * FROM users WHERE username=? AND password=?", username, password)
 	if err != nil {
 		panic(err.Error())
