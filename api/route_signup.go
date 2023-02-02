@@ -8,15 +8,19 @@ import (
 )
 
 func signup(c *gin.Context) {
-	username := c.Query("username")
-	password := c.Query("password")
-
-	c.JSON(http.StatusOK, gin.H{
-		"username": username,
-		"password": password,
-	})
+	username := c.PostForm("username")
+	password := c.PostForm("password")
 
 	db := database.OpenDB()
 	defer database.CloseDB(db)
-	database.Insert(db, username, password)
+	var status bool = database.Insert(db, username, password)
+	if status {
+		c.JSON(http.StatusOK, gin.H{
+			"status": true, "message": "signup successful",
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"status": false, "message": "something went wrong!!!",
+		})
+	}
 }
